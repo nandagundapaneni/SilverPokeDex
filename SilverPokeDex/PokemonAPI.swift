@@ -10,7 +10,7 @@ import Foundation
 struct PokemonAPI: Sendable {
     
     func fetchPokemonList() async throws -> [PokemonEntry] {
-        let urlString = "https://pokeapi.co/api/v2/pokemon?limit=100"
+        let urlString = "https://pokeapi.co/api/v2/pokemon?limit=1025"
         guard let url = URL(string: urlString) else {
             throw NSError(domain: "Invalid URL", code: -1, userInfo: nil)
         }

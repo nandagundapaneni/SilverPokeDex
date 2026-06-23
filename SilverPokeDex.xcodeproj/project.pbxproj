@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3DE179712FEA93E200DD4CC2 /* PokemonElementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE179702FEA93E200DD4CC2 /* PokemonElementType.swift */; };
+		3DE179722FEA93E200DD4CC2 /* PokemonElementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE179702FEA93E200DD4CC2 /* PokemonElementType.swift */; };
+		3DE179732FEA93E200DD4CC2 /* PokemonElementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE179702FEA93E200DD4CC2 /* PokemonElementType.swift */; };
+		3DE179DC2FEAAFBD00DD4CC2 /* Array+chunked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE179DB2FEAAFB500DD4CC2 /* Array+chunked.swift */; };
+		3DE179DD2FEAAFBD00DD4CC2 /* Array+chunked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE179DB2FEAAFB500DD4CC2 /* Array+chunked.swift */; };
+		3DE179DE2FEAAFBD00DD4CC2 /* Array+chunked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE179DB2FEAAFB500DD4CC2 /* Array+chunked.swift */; };
 		3DFE575A2BD6F871005D434E /* SilverPokeDexApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE57592BD6F871005D434E /* SilverPokeDexApp.swift */; };
 		3DFE575C2BD6F871005D434E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE575B2BD6F871005D434E /* ContentView.swift */; };
 		3DFE575E2BD6F872005D434E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DFE575D2BD6F872005D434E /* Assets.xcassets */; };
@@ -50,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3DE179702FEA93E200DD4CC2 /* PokemonElementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonElementType.swift; sourceTree = "<group>"; };
+		3DE179DB2FEAAFB500DD4CC2 /* Array+chunked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+chunked.swift"; sourceTree = "<group>"; };
 		3DFE57562BD6F871005D434E /* SilverPokeDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SilverPokeDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DFE57592BD6F871005D434E /* SilverPokeDexApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SilverPokeDexApp.swift; sourceTree = "<group>"; };
 		3DFE575B2BD6F871005D434E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -117,6 +125,8 @@
 		3DFE57582BD6F871005D434E /* SilverPokeDex */ = {
 			isa = PBXGroup;
 			children = (
+				3DE179DB2FEAAFB500DD4CC2 /* Array+chunked.swift */,
+				3DE179702FEA93E200DD4CC2 /* PokemonElementType.swift */,
 				3DFE57592BD6F871005D434E /* SilverPokeDexApp.swift */,
 				3DFE575B2BD6F871005D434E /* ContentView.swift */,
 				3DFE575D2BD6F872005D434E /* Assets.xcassets */,
@@ -221,7 +231,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 2650;
 				TargetAttributes = {
 					3DFE57552BD6F871005D434E = {
 						CreatedOnToolsVersion = 15.2;
@@ -287,8 +297,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DE179722FEA93E200DD4CC2 /* PokemonElementType.swift in Sources */,
 				3DFE578D2BD6F99A005D434E /* PokemonListView.swift in Sources */,
 				3DFE575C2BD6F871005D434E /* ContentView.swift in Sources */,
+				3DE179DE2FEAAFBD00DD4CC2 /* Array+chunked.swift in Sources */,
 				3DFE575A2BD6F871005D434E /* SilverPokeDexApp.swift in Sources */,
 				3DFE57872BD6F924005D434E /* PokemonAPI.swift in Sources */,
 				3DFE57972BD701B8005D434E /* PokemonListViewModel.swift in Sources */,
@@ -301,8 +313,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DE179732FEA93E200DD4CC2 /* PokemonElementType.swift in Sources */,
 				3DFE578E2BD6F99A005D434E /* PokemonListView.swift in Sources */,
 				3DFE57952BD6FC43005D434E /* PokemonAPITests.swift in Sources */,
+				3DE179DC2FEAAFBD00DD4CC2 /* Array+chunked.swift in Sources */,
 				3DFE57882BD6F924005D434E /* PokemonAPI.swift in Sources */,
 				3DFE57982BD701B8005D434E /* PokemonListViewModel.swift in Sources */,
 				3DFE576C2BD6F872005D434E /* SilverPokeDexTests.swift in Sources */,
@@ -315,8 +329,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DE179712FEA93E200DD4CC2 /* PokemonElementType.swift in Sources */,
 				3DFE578F2BD6F99A005D434E /* PokemonListView.swift in Sources */,
 				3DFE57782BD6F872005D434E /* SilverPokeDexUITestsLaunchTests.swift in Sources */,
+				3DE179DD2FEAAFBD00DD4CC2 /* Array+chunked.swift in Sources */,
 				3DFE57762BD6F872005D434E /* SilverPokeDexUITests.swift in Sources */,
 				3DFE578B2BD6F943005D434E /* PokemonAPI.swift in Sources */,
 				3DFE57992BD701B8005D434E /* PokemonListViewModel.swift in Sources */,
@@ -375,6 +391,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -397,6 +414,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -436,6 +454,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -451,6 +470,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
@@ -463,6 +483,7 @@
 				CODE_SIGN_ENTITLEMENTS = SilverPokeDex/SilverPokeDex.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SilverPokeDex/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -499,6 +520,7 @@
 				CODE_SIGN_ENTITLEMENTS = SilverPokeDex/SilverPokeDex.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SilverPokeDex/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -530,10 +552,10 @@
 		3DFE577F2BD6F872005D434E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -552,10 +574,10 @@
 		3DFE57802BD6F872005D434E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -574,9 +596,9 @@
 		3DFE57822BD6F872005D434E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -595,9 +617,9 @@
 		3DFE57832BD6F872005D434E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;

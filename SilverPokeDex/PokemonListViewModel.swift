@@ -14,6 +14,8 @@ final class PokemonListViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var error: Error?
     @Published var statusMessage = ""
+    @Published var loadedCount = 0
+    @Published var totalCount = 0
 
     private var api = PokemonAPI()
     private var cancellables = Set<AnyCancellable>()
@@ -26,10 +28,12 @@ final class PokemonListViewModel: ObservableObject {
     
     
     func loadPokemons() async {
-        
-        pokemons = []
+        guard !isLoading else { return }
+
         isLoading = true
         error = nil
+        loadedCount = 0
+        totalCount = 0
         statusMessage = "Loading Pokémon..."
 
         defer {
@@ -38,24 +42,35 @@ final class PokemonListViewModel: ObservableObject {
 
         do {
             let entries = try await api.fetchPokemonList()
+            totalCount = entries.count
 
-            pokemons = try await withThrowingTaskGroup(of: PokemonDetail.self) { group in
-                for entry in entries {
-                    group.addTask { [api] in
-                        try await api.fetchPokemonDetail(from: entry.url)
+            let batchSize = 20
+            var allResults: [PokemonDetail] = []
+
+            for batch in entries.chunked(into: batchSize) {
+                let batchResults = try await withThrowingTaskGroup(of: PokemonDetail.self) { group in
+                    for entry in batch {
+                        group.addTask { [api] in
+                            try await api.fetchPokemonDetail(from: entry.url)
+                        }
                     }
+
+                    var results: [PokemonDetail] = []
+
+                    for try await detail in group {
+                        results.append(detail)
+                    }
+
+                    return results
                 }
 
-                var results: [PokemonDetail] = []
-
-                for try await detail in group {
-                    results.append(detail)
-                }
-
-                return results.sorted { $0.id < $1.id }
+                allResults.append(contentsOf: batchResults)
+                loadedCount = allResults.count
+                statusMessage = "Loaded \(loadedCount)/\(totalCount) Pokémon"
             }
 
-            statusMessage = "Loaded \(pokemons.count) Pokémon"
+            pokemons = allResults.sorted { $0.id < $1.id }
+            statusMessage = "Loaded \(pokemons.count)/\(totalCount) Pokémon"
 
         } catch {
             self.error = error
@@ -104,8 +119,14 @@ final class PokemonListViewModel: ObservableObject {
             while !Task.isCancelled {
                 try? await Task.sleep(for: .seconds(1))
 
-                self?.statusMessage =
-                    "Last checked at \(Date().formatted(date: .omitted, time: .standard))"
+                await MainActor.run {
+                    guard let self else { return }
+
+                    if !self.isLoading {
+                        self.statusMessage =
+                            "Last checked at \(Date().formatted(date: .omitted, time: .standard))"
+                    }
+                }
             }
         }
     }
