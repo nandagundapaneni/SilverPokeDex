@@ -20,7 +20,6 @@ struct PokemonListView: View {
         }
 
         return viewModel.pokemons.filter { pokemon in
-
             let matchesName =
                 pokemon.name.localizedCaseInsensitiveContains(searchText)
 
@@ -37,69 +36,30 @@ struct PokemonListView: View {
             let matchesID =
                 String(pokemon.id).contains(searchText)
 
-            return matchesName
-                || matchesAbility
-                || matchesType
-                || matchesID
+            return matchesName || matchesAbility || matchesType || matchesID
         }
     }
 
     var body: some View {
         ZStack {
             NavigationStack {
-                Group {
-                    if viewModel.pokemons.isEmpty && viewModel.isLoading {
-                        VStack(spacing: 12) {
-                            ProgressView(
-                                value: Double(viewModel.loadedCount),
-                                total: Double(max(viewModel.totalCount, 1))
-                            )
-                            .progressViewStyle(.linear)
-                            .padding(.horizontal, 40)
-
-                            Text(viewModel.statusMessage.isEmpty
-                                 ? "Catching Pokémon..."
-                                 : viewModel.statusMessage)
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                        }
-                    } else {
-                        List(filteredPokemons, id: \.id) { pokemon in
-                            Button {
-                                withAnimation(.spring(response: 0.45, dampingFraction: 0.86)) {
-                                    selectedPokemon = pokemon
-                                }
-                            } label: {
-                                pokemonRow(pokemon)
-                                    .matchedGeometryEffect(
-                                        id: "pokemon-card-\(pokemon.id)",
-                                        in: pokemonTransition
-                                    )
-                            }
-                            .buttonStyle(.plain)
-                            .listRowSeparator(.hidden)
-                            .listRowInsets(
-                                EdgeInsets(
-                                    top: 8,
-                                    leading: 16,
-                                    bottom: 8,
-                                    trailing: 16
-                                )
-                            )
-                            .listRowBackground(Color.clear)
-                        }
-                        .listStyle(.plain)
-                        .scrollContentBackground(.hidden)
-                        .refreshable {
-                            await viewModel.loadPokemons()
-                        }
-                        .searchable(text: $searchText)
+                contentView
+                    .navigationTitle("Pokémon")
+                    .searchable(text: $searchText)
+                    .task {
+                        await viewModel.loadPokemons()
                     }
-                }
-                .navigationTitle("Pokémon")
-                .task {
-                    await viewModel.loadPokemons()
-                }
+                    .toolbar {
+                        #if os(macOS)
+                        Button {
+                            Task {
+                                await viewModel.loadPokemons()
+                            }
+                        } label: {
+                            Label("Reload", systemImage: "arrow.clockwise")
+                        }
+                        #endif
+                    }
             }
             .opacity(selectedPokemon == nil ? 1 : 0)
 
@@ -117,37 +77,95 @@ struct PokemonListView: View {
             }
         }
     }
-    
-    private func rowTypeColor(for pokemon: PokemonDetail) -> Color {
-        guard let element = pokemon.types.first.flatMap({
-            PokemonElementType(rawValue: $0.type.name)
-        }) else {
-            return .green
-        }
+}
 
-        switch element {
-        case .normal: return .gray
-        case .fire: return .orange
-        case .water: return .blue
-        case .electric: return .yellow
-        case .grass: return .green
-        case .ice: return .cyan
-        case .fighting: return .red
-        case .poison: return .purple
-        case .ground: return .brown
-        case .flying: return .indigo
-        case .psychic: return .pink
-        case .bug: return .mint
-        case .rock: return .brown
-        case .ghost: return .purple
-        case .dragon: return .indigo
-        case .dark: return .black
-        case .steel: return .gray
-        case .fairy: return .pink
+// MARK: - Content
+
+private extension PokemonListView {
+
+    @ViewBuilder
+    var contentView: some View {
+        if viewModel.pokemons.isEmpty && viewModel.isLoading {
+            loadingView
+
+        } else if viewModel.pokemons.isEmpty {
+            emptyView
+
+        } else {
+            pokemonScrollView
         }
     }
 
-    private func pokemonRow(_ pokemon: PokemonDetail) -> some View {
+    var loadingView: some View {
+        VStack(spacing: 12) {
+            ProgressView(
+                value: Double(viewModel.loadedCount),
+                total: Double(max(viewModel.totalCount, 1))
+            )
+            .progressViewStyle(.linear)
+            .frame(maxWidth: 360)
+            .padding(.horizontal, 40)
+
+            Text(viewModel.statusMessage.isEmpty
+                 ? "Catching Pokémon..."
+                 : viewModel.statusMessage)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    var emptyView: some View {
+        VStack(spacing: 14) {
+            Image(systemName: "tray")
+                .font(.system(size: 40, weight: .semibold))
+                .foregroundStyle(.secondary)
+
+            Text("No Pokémon Loaded")
+                .font(.headline)
+
+            Button("Reload") {
+                Task {
+                    await viewModel.loadPokemons()
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    var pokemonScrollView: some View {
+        ScrollView {
+            LazyVStack(spacing: 12) {
+                ForEach(filteredPokemons, id: \.id) { pokemon in
+                    Button {
+                        withAnimation(.spring(response: 0.45, dampingFraction: 0.86)) {
+                            selectedPokemon = pokemon
+                        }
+                    } label: {
+                        pokemonRow(pokemon)
+                            .matchedGeometryEffect(
+                                id: "pokemon-card-\(pokemon.id)",
+                                in: pokemonTransition
+                            )
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding()
+        }
+        #if os(iOS)
+        .refreshable {
+            await viewModel.loadPokemons()
+        }
+        #endif
+    }
+}
+
+// MARK: - Row
+
+private extension PokemonListView {
+
+    func pokemonRow(_ pokemon: PokemonDetail) -> some View {
         HStack(spacing: 14) {
             ZStack {
                 Circle()
@@ -216,6 +234,35 @@ struct PokemonListView: View {
         .overlay {
             RoundedRectangle(cornerRadius: 22, style: .continuous)
                 .stroke(.white.opacity(0.6), lineWidth: 1)
+        }
+    }
+
+    func rowTypeColor(for pokemon: PokemonDetail) -> Color {
+        guard let element = pokemon.types.first.flatMap({
+            PokemonElementType(rawValue: $0.type.name)
+        }) else {
+            return .green
+        }
+
+        switch element {
+        case .normal: return .gray
+        case .fire: return .orange
+        case .water: return .blue
+        case .electric: return .yellow
+        case .grass: return .green
+        case .ice: return .cyan
+        case .fighting: return .red
+        case .poison: return .purple
+        case .ground: return .brown
+        case .flying: return .indigo
+        case .psychic: return .pink
+        case .bug: return .mint
+        case .rock: return .brown
+        case .ghost: return .purple
+        case .dragon: return .indigo
+        case .dark: return .black
+        case .steel: return .gray
+        case .fairy: return .pink
         }
     }
 }

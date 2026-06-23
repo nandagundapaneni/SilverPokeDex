@@ -49,8 +49,6 @@ struct PokemonDetailView: View {
             }
             .scrollIndicators(.hidden)
         }
-        .navigationBarBackButtonHidden(true)
-        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
