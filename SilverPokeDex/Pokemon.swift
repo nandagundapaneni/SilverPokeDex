@@ -11,13 +11,13 @@ struct PokemonListResponse: Codable {
     let results: [PokemonEntry]
 }
 
-struct PokemonEntry: Codable, Identifiable {
+struct PokemonEntry: Codable, Identifiable, Hashable {
     let name: String
     let url: URL
     var id: String { url.path }
 }
 
-struct PokemonDetail: Codable, Identifiable {
+struct PokemonDetail: Codable, Identifiable, Hashable {
     let id: Int
     let name: String
     let baseExperience: Int
@@ -31,15 +31,15 @@ struct PokemonDetail: Codable, Identifiable {
     }
 }
 
-struct Ability: Codable {
+struct Ability: Codable, Hashable {
     let ability: AbilityDetail
 }
 
-struct AbilityDetail: Codable {
+struct AbilityDetail: Codable , Hashable{
     let name: String
 }
 
-struct PokemonSprites: Codable {
+struct PokemonSprites: Codable, Hashable {
     let frontDefault: URL
 
     enum CodingKeys: String, CodingKey {

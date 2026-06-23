@@ -30,6 +30,11 @@ struct PokemonDetailView: View {
                 Text("Base Experience: \(pokemon.baseExperience)")
                     .font(.subheadline)
 
+                Text("First ability: \(pokemon.abilities.first?.ability.name.capitalized ?? "Unknown")")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                
+
                 VStack(alignment: .leading) {
                     Text("Abilities:")
                         .font(.headline)
